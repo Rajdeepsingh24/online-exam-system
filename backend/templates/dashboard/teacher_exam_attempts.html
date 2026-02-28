@@ -1,0 +1,40 @@
+{% extends "dashboard/base.html" %} {% block title %}Exam Attempts{% endblock %}
+{% block content %}
+
+<h2>Attempts - {{ exam.title }}</h2>
+
+<div class="card mt-20">
+  {% if attempts %}
+  <table class="modern-table">
+    <thead>
+      <tr>
+        <th>Student</th>
+        <th>Score</th>
+        <th>Submitted At</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for attempt in attempts %}
+      <tr>
+        <td>{{ attempt.student.username }}</td>
+        <td>{{ attempt.score }}</td>
+        <td>{{ attempt.submitted_at }}</td>
+        <td>
+          <a
+            href="{% url 'teacher_attempt_detail' attempt.id %}"
+            class="btn-sm"
+          >
+            View Answers
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p>No attempts yet.</p>
+  {% endif %}
+</div>
+
+{% endblock %}

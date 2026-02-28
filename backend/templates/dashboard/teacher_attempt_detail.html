@@ -1,0 +1,22 @@
+{% extends "dashboard/base.html" %} {% block title %}Attempt Detail{% endblock%}
+{% block content %}
+
+<h2>Student: {{ attempt.student.username }}</h2>
+<p><strong>Score:</strong> {{ attempt.score }}</p>
+<p><strong>Submitted:</strong> {{ attempt.submitted_at }}</p>
+
+<hr />
+
+{% for ans in answers %}
+<div class="card mt-20">
+  <p><strong>Q:</strong> {{ ans.question.question_text }}</p>
+  <p>Your Answer: {{ ans.selected_option }}</p>
+  <p>Correct Answer: {{ ans.question.correct_answer }}</p>
+
+  {% if ans.selected_option == ans.question.correct_answer %}
+  <p style="color: green">✔ Correct</p>
+  {% else %}
+  <p style="color: red">✘ Wrong</p>
+  {% endif %}
+</div>
+{% endfor %} {% endblock %}

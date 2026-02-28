@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Exam Closed</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/exam.css' %}" />
+  </head>
+  <body>
+    <div class="exam-container" style="text-align: center">
+      <h2>⛔ Exam Window Closed</h2>
+
+      <p>
+        The exam "<strong>{{ exam.title }}</strong>" is no longer available.
+      </p>
+
+      <p>Please contact your teacher if you believe this is an error.</p>
+
+      <br />
+
+      <a href="{% url 'student_dashboard' %}" class="submit-btn">
+        Back to Dashboard
+      </a>
+    </div>
+  </body>
+</html>

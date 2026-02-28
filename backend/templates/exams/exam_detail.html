@@ -14,7 +14,7 @@
 
       <div class="timer">
         Time Remaining:
-        <span id="countdown"></span>
+        <span id="countdown">Loading...</span>
       </div>
 
       <form method="post">
@@ -49,28 +49,27 @@
     </div>
 
     <script>
-      const endTime = new Date(
-        "{{ exam.end_time|date:'Y-m-d H:i:s' }}",
-      ).getTime();
+      let remainingTime = Number("{{ remaining_seconds|default:0 }}");
 
-      const timer = setInterval(function () {
-        const now = new Date().getTime();
-        const distance = endTime - now;
+      const countdown = document.getElementById("countdown");
 
-        if (distance < 0) {
-          clearInterval(timer);
-          document.getElementById("countdown").innerHTML = "Time Over";
+      function updateTimer() {
+        if (remainingTime <= 0) {
+          countdown.innerHTML = "Time Over";
           document.forms[0].submit();
-        } else {
-          const minutes = Math.floor(
-            (distance % (1000 * 60 * 60)) / (1000 * 60),
-          );
-          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-          document.getElementById("countdown").innerHTML =
-            minutes + "m " + seconds + "s";
+          return;
         }
-      }, 1000);
+
+        const minutes = Math.floor(remainingTime / 60);
+        const seconds = remainingTime % 60;
+
+        countdown.innerHTML = minutes + "m " + seconds + "s";
+
+        remainingTime--;
+      }
+
+      updateTimer();
+      setInterval(updateTimer, 1000);
     </script>
   </body>
 </html>

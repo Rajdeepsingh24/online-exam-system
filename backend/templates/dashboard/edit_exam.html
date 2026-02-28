@@ -1,0 +1,115 @@
+{% extends "dashboard/base.html" %}
+{% block title %}Edit Exam{% endblock %}
+
+{% block sidebar %}
+<a href="{% url 'teacher_dashboard' %}">📊 Dashboard</a>
+<a href="{% url 'teacher_exams' %}" class="active-link">📚 All Exams</a>
+<a href="{% url 'create_exam' %}">➕ Create Exam</a>
+{% endblock %}
+
+{% block content %}
+
+<div class="create-exam-wrapper">
+
+  <!-- LEFT SIDE INFO PANEL -->
+  <div class="exam-info-card">
+    <h2>Edit Exam</h2>
+    <p>
+      Update exam details carefully. Changes will reflect immediately.
+    </p>
+
+    <div class="info-box">
+      <strong>Important:</strong>
+      <ul>
+        <li>Changing duration affects future attempts</li>
+        <li>Ensure time window is valid</li>
+        <li>Review before updating</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- RIGHT SIDE FORM -->
+  <div class="exam-form-card">
+    <form method="POST">
+      {% csrf_token %}
+
+      <!-- SUBJECT -->
+      <div class="form-group">
+        <label>Subject</label>
+        <select name="subject" required>
+          {% for subject in subjects %}
+          <option value="{{ subject.id }}"
+            {% if subject.id == exam.subject.id %}selected{% endif %}>
+            {{ subject.name }}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- TITLE -->
+      <div class="form-group">
+        <label>Exam Title</label>
+        <input
+          type="text"
+          name="title"
+          value="{{ exam.title }}"
+          required
+        />
+      </div>
+
+      <!-- DURATION + MARKS -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>Duration (minutes)</label>
+          <input
+            type="number"
+            name="duration"
+            value="{{ exam.duration_minutes }}"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Total Marks</label>
+          <input
+            type="number"
+            name="total_marks"
+            value="{{ exam.total_marks }}"
+            required
+          />
+        </div>
+      </div>
+
+      <!-- START + END -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>Start Time</label>
+          <input
+            type="datetime-local"
+            name="start_time"
+            value="{{ exam.start_time|date:'Y-m-d\\TH:i' }}"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label>End Time</label>
+          <input
+            type="datetime-local"
+            name="end_time"
+            value="{{ exam.end_time|date:'Y-m-d\\TH:i' }}"
+            required
+          />
+        </div>
+      </div>
+
+      <button class="btn-primary create-btn">
+        Update Exam →
+      </button>
+
+    </form>
+  </div>
+
+</div>
+
+{% endblock %}

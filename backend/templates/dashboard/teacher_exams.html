@@ -1,42 +1,103 @@
-{% extends "dashboard/base_dashboard.html" %} {% block content %}
+{% extends "dashboard/base.html" %} {% block title %}All Exams{% endblock %}
+{%block sidebar %}
+<a href="{% url 'teacher_dashboard' %}">📊 Dashboard</a>
+<a href="{% url 'teacher_exams' %}" class="active-link">📚 All Exams</a>
+<a href="{% url 'create_exam' %}">➕ Create Exam</a>
+{% endblock %} {% block content %}
 
-<h2 class="text-2xl font-bold mb-6 text-gray-700">My Exams</h2>
+<div class="page-header">
+  <div>
+    <h2>All Exams</h2>
+    <p>Manage and monitor your created exams</p>
+  </div>
+  <a href="{% url 'create_exam' %}" class="btn-primary"> + Create Exam </a>
+</div>
 
-<a
-  href="{% url 'create_exam' %}"
-  class="bg-green-600 text-white px-4 py-2 rounded mb-6 inline-block"
->
-  + Create New Exam
-</a>
-
-<div class="bg-white rounded-2xl shadow p-6 mt-4">
-  {% if exams %}
-  <table class="w-full text-left">
+<div class="card mt-20">
+  {% if exam_data %}
+  <table class="modern-table">
     <thead>
-      <tr class="border-b">
-        <th class="py-2">Title</th>
-        <th class="py-2">Duration</th>
-        <th class="py-2">Active</th>
+      <tr>
+        <th>Title</th>
+        <th>Duration</th>
+        <th>Status</th>
+        <th>Questions</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      {% for exam in exams %}
-      <tr class="border-b hover:bg-gray-50">
-        <td class="py-2">{{ exam.title }}</td>
-        <td class="py-2">{{ exam.duration_minutes }} mins</td>
-        <td class="py-2">
+      {% for exam in exam_data %}
+      <tr>
+        <td><strong>{{ exam.title }}</strong></td>
+
+        <td>{{ exam.duration }} mins</td>
+
+        <td>
           {% if exam.is_active %}
-          <span class="text-green-600 font-semibold">Active</span>
+          <span class="badge-success">Active</span>
           {% else %}
-          <span class="text-red-500 font-semibold">Inactive</span>
+          <span class="badge-danger">Inactive</span>
           {% endif %}
+        </td>
+
+        <!-- QUESTIONS BUTTON -->
+        <td>
+          <a
+            href="{% url 'manage_questions' exam.id %}"
+            class="btn btn-question"
+          >
+            📝 {{ exam.questions }} Questions
+          </a>
+        </td>
+
+        <!-- ATTEMPTS BUTTON -->
+        <td>
+          <a
+            href="{% url 'teacher_exam_attempts' exam.id %}"
+            class="btn btn-attempt"
+          >
+            📊 {{ exam.attempts }} Attempts
+          </a>
+        </td>
+
+        <!-- ACTIONS -->
+        <td class="action-buttons">
+          {% if not exam.is_active %}
+          <a href="{% url 'publish_exam' exam.id %}" class="btn btn-publish">
+            🚀 Publish
+          </a>
+          {% endif %}
+
+          <a href="{% url 'edit_exam' exam.id %}" class="btn btn-edit">
+            ✏ Edit
+          </a>
+
+          <a
+            href="{% url 'duplicate_exam' exam.id %}"
+            class="btn btn-duplicate"
+          >
+            📄 Duplicate
+          </a>
+
+          <a
+            href="{% url 'delete_exam' exam.id %}"
+            class="btn btn-delete"
+            onclick="return confirm('Delete this exam?');"
+          >
+            🗑 Delete
+          </a>
         </td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
+
   {% else %}
-  <p class="text-gray-500">No exams created yet.</p>
+  <div class="empty-state">
+    <h3>No Exams Yet</h3>
+    <p>Create your first exam to begin.</p>
+    <a href="{% url 'create_exam' %}" class="btn-primary"> Create Exam </a>
+  </div>
   {% endif %}
 </div>
 

@@ -25,12 +25,15 @@ Dashboard{%endblock%} {% block sidebar %}
     <div class="stat-number pending">{{ pending }}</div>
   </div>
 
-  <div class="card">
-    <h3>Performance</h3>
+  <div class="stat-card">
+    <h4>Performance</h4>
+
     <div class="stat-number">{{ performance }}%</div>
-    <div class="progress-bar-container">
-      <div class="progress-bar-fill"></div>
+
+    <div class="progress-container">
+        <div class="progress-fill" data-performance="{{ performance }}"></div>
     </div>
+</div>
   </div>
 </div>
 
@@ -42,10 +45,8 @@ Dashboard{%endblock%} {% block sidebar %}
   <canvas id="performanceChart" height="100"></canvas>
 </div>
 
-{{ chart_labels|json_script:"chart-labels" }} {{
-chart_scores|json_script:"chart-scores" }} {{
-performance|json_script:"performance-data" }}
-
+{{ chart_labels|json_script:"chart-labels" }}
+{{chart_scores|json_script:"chart-scores" }}
 <hr class="divider" />
 
 <h2 class="section-title">🏆 Latest Exam Leaderboard</h2>
@@ -105,6 +106,15 @@ performance|json_script:"performance-data" }}
         <td colspan="3" class="no-data">No attempts yet.</td>
       </tr>
       {% endfor %}
+      <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const bar = document.querySelector(".progress-fill");
+    if (bar) {
+        const value = bar.dataset.performance;
+        bar.style.width = value + "%";
+    }
+});
+</script>
     </tbody>
   </table>
 </div>
@@ -115,8 +125,13 @@ performance|json_script:"performance-data" }}
     const scoresEl = document.getElementById("chart-scores");
     const perfEl = document.getElementById("performance-data");
 
-    const labels = labelsEl ? JSON.parse(labelsEl.textContent) : [];
-    const scores = scoresEl ? JSON.parse(scoresEl.textContent) : [];
+    const labels = JSON.parse(
+      document.getElementById("chart-labels").textContent,
+    );
+
+    const scores = JSON.parse(
+      document.getElementById("chart-scores").textContent,
+    );
     const progress = perfEl ? JSON.parse(perfEl.textContent) : 0;
 
     const ctx = document.getElementById("performanceChart");

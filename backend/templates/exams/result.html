@@ -1,8 +1,46 @@
-<h2>Exam Result</h2>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Exam Result</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/exam.css' %}" />
+  </head>
 
-<p><strong>Student:</strong> {{ result.student.username }}</p>
-<p><strong>Exam:</strong> {{ result.exam.title }}</p>
-<p><strong>Total Score:</strong> {{ result.score }}</p>
-<p><strong>Submitted At:</strong> {{ result.submitted_at }}</p>
+  <body>
+    <div class="exam-container">
+      <h2>Exam Result</h2>
 
-<a href="/student-dashboard/">Back to Dashboard</a>
+      <p><strong>Student:</strong> {{ attempt.student.username }}</p>
+      <p><strong>Exam:</strong> {{ attempt.exam.title }}</p>
+      <p>
+        <strong>Total Score:</strong> {{ attempt.score }} / {{ total_marks }}
+      </p>
+      <p><strong>Correct Answers:</strong> {{ correct_count }}</p>
+      <p><strong>Submitted At:</strong> {{ attempt.submitted_at }}</p>
+
+      <hr />
+
+      <h3>Answer Review:</h3>
+
+      {% for ans in answers %}
+      <div class="question-card">
+        <p><strong>Q:</strong> {{ ans.question.question_text }}</p>
+        <p><strong>Your Answer:</strong> {{ ans.selected_option }}</p>
+        <p>
+          <strong>Correct Answer:</strong> {{ ans.question.correct_answer }}
+        </p>
+
+        {% if ans.selected_option == ans.question.correct_answer %}
+        <p class="correct">✔ Correct</p>
+        {% else %}
+        <p class="wrong">✘ Wrong</p>
+        {% endif %}
+      </div>
+      {% endfor %}
+
+      <a href="{% url 'student_dashboard' %}" class="submit-btn">
+        Back to Dashboard
+      </a>
+    </div>
+  </body>
+</html>
