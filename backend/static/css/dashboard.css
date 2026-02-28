@@ -1,0 +1,214 @@
+/* ===== CARD GRID ===== */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+/* ===== CARD ===== */
+
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  transition: 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(37, 99, 235, 0.2);
+}
+
+.card h3 {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #6b7280;
+}
+
+/* ===== STATS ===== */
+
+.stat-number {
+  font-size: 28px;
+  font-weight: bold;
+  color: #111827;
+}
+
+.completed {
+  color: #16a34a;
+}
+
+.pending {
+  color: #f59e0b;
+}
+
+/* ===== PROGRESS BAR ===== */
+
+.progress-bar-container {
+  background: #e5e7eb;
+  height: 8px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.progress-bar-fill {
+  height: 8px;
+  background: linear-gradient(90deg, #2563eb, #60a5fa);
+  border-radius: 10px;
+  width: 0;
+  transition: width 1.5s ease-in-out;
+}
+
+/* ===== SECTION ===== */
+
+.section-title {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* ===== TABLE ===== */
+
+.table th,
+.table td {
+  padding: 12px;
+  text-align: left;
+}
+
+.table th {
+  background: #f9fafb;
+  font-weight: 600;
+}
+
+.table tr {
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.table tr:hover {
+  background: #f9fafb;
+}
+
+/* ===== BADGE ===== */
+
+.badge-success {
+  background: #d1fae5;
+  color: #065f46;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+.page-title {
+  margin-bottom: 25px;
+}
+
+.divider {
+  margin: 40px 0;
+  opacity: 0.2;
+}
+
+.exam-title {
+  margin-bottom: 15px;
+}
+
+.user-rank {
+  margin-top: 15px;
+  font-weight: 500;
+}
+
+.no-data {
+  padding: 15px;
+  text-align: center;
+}
+/* ===== AVAILABLE EXAMS ===== */
+
+.exam-item {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.exam-item:last-child {
+  border-bottom: none;
+}
+
+.exam-description {
+  margin: 10px 0 15px;
+  color: #6b7280;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 8px 18px;
+  background: #2563eb;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+}
+/* ===== RESULTS PAGE ===== */
+
+.results-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.results-table th,
+.results-table td {
+  padding: 14px;
+  text-align: left;
+}
+
+.results-table th {
+  background: #f9fafb;
+  font-weight: 600;
+}
+
+.results-table tr {
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.results-table tr:hover {
+  background: #f9fafb;
+}
+
+.status-badge {
+  background: #d1fae5;
+  color: #065f46;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.empty-row {
+  text-align: center;
+  padding: 20px;
+  color: #6b7280;
+}
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.badge-danger {
+  background: #fee2e2;
+  color: #b91c1c;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}

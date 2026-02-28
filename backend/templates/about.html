@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>About | Exam Management System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/public.css' %}" />
+  </head>
+  <body>
+    <div class="navbar">
+      <h2>🎓 EMS</h2>
+      <a href="{% url 'home' %}" class="nav-btn">Home</a>
+    </div>
+
+    <div class="hero">
+      <h1>Smart Online Examination Platform</h1>
+      <p>
+        A secure and powerful system designed to simplify exam creation, student
+        participation, and real-time performance evaluation.
+      </p>
+    </div>
+
+    <div class="features">
+      <div class="feature-card">
+        <h3>👩‍🏫 Teacher Control</h3>
+        <p>
+          Create exams, manage questions, publish tests and monitor student
+          performance in one place.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <h3>🎓 Student Experience</h3>
+        <p>
+          Attempt exams seamlessly and receive instant evaluation and result
+          tracking.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <h3>🔐 Secure & Reliable</h3>
+        <p>
+          Role-based authentication ensures exam integrity and complete data
+          protection.
+        </p>
+      </div>
+    </div>
+
+    <div class="cta">
+      <a href="{% url 'login' %}" class="cta-btn">Start Your Journey</a>
+    </div>
+
+    <div class="footer">© 2026 Exam Management System | Built with Django</div>
+  </body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ exam.title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/exam.css' %}" />
+  </head>
+
+  <body>
+    <div class="exam-container">
+      <h2>{{ exam.title }}</h2>
+
+      <div class="timer">
+        Time Remaining:
+        <span id="countdown"></span>
+      </div>
+
+      <form method="post">
+        {% csrf_token %} {% for question in questions %}
+        <div class="question-card">
+          <h3>Q{{ forloop.counter }}: {{ question.question_text }}</h3>
+
+          <label class="option">
+            <input type="radio" name="question_{{ question.id }}" value="A" />
+            {{ question.option_a }}
+          </label>
+
+          <label class="option">
+            <input type="radio" name="question_{{ question.id }}" value="B" />
+            {{ question.option_b }}
+          </label>
+
+          <label class="option">
+            <input type="radio" name="question_{{ question.id }}" value="C" />
+            {{ question.option_c }}
+          </label>
+
+          <label class="option">
+            <input type="radio" name="question_{{ question.id }}" value="D" />
+            {{ question.option_d }}
+          </label>
+        </div>
+        {% endfor %}
+
+        <button type="submit" class="submit-btn">Submit Exam</button>
+      </form>
+    </div>
+
+    <script>
+      const endTime = new Date(
+        "{{ exam.end_time|date:'Y-m-d H:i:s' }}",
+      ).getTime();
+
+      const timer = setInterval(function () {
+        const now = new Date().getTime();
+        const distance = endTime - now;
+
+        if (distance < 0) {
+          clearInterval(timer);
+          document.getElementById("countdown").innerHTML = "Time Over";
+          document.forms[0].submit();
+        } else {
+          const minutes = Math.floor(
+            (distance % (1000 * 60 * 60)) / (1000 * 60),
+          );
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+          document.getElementById("countdown").innerHTML =
+            minutes + "m " + seconds + "s";
+        }
+      }, 1000);
+    </script>
+  </body>
+</html>

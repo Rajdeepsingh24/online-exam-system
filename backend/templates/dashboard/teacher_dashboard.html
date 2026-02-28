@@ -1,0 +1,46 @@
+{% extends "dashboard/base.html" %} {% block title %}Teacher
+Dashboard{%endblock%} {% block sidebar %}
+<a href="{% url 'teacher_dashboard' %}">📚 My Exams</a>
+<a href="{% url 'create_exam' %}">➕ Create Exam</a>
+{% endblock %} {% block content %}
+
+<h2 class="section-title">My Exams</h2>
+
+<a href="{% url 'create_exam' %}" class="btn-primary mb-20">
+  + Create New Exam
+</a>
+
+<div class="card mt-20">
+  {% if exams %}
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Duration</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for exam in exams %}
+      <tr>
+        <td>{{ exam.title }}</td>
+        <td>{{ exam.duration_minutes }} mins</td>
+        <td>
+          {% if exam.is_active %}
+          <span class="badge-success">Active</span>
+          {% else %}
+          <span class="badge-danger">Inactive</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% else %}
+  <p class="no-data">No exams created yet.</p>
+  {% endif %}
+</div>
+
+{% endblock %}

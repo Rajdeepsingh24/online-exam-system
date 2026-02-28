@@ -1,0 +1,31 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}Available Exams{% endblock %}
+
+{% block sidebar %}
+<a href="{% url 'student_dashboard' %}">🏠 Dashboard</a>
+<a href="{% url 'available_exams' %}">📝 Available Exams</a>
+<a href="{% url 'my_results' %}">📊 My Results</a>
+{% endblock %}
+
+{% block content %}
+
+<h2 class="section-title">Available Exams</h2>
+
+<div class="card">
+
+  {% for exam in exams %}
+  <div class="exam-item">
+    <h3>{{ exam.title }}</h3>
+    <p class="exam-description">{{ exam.description }}</p>
+    <a href="{% url 'start_exam' exam.id %}" class="btn-primary">
+      Start Exam
+    </a>
+  </div>
+  {% empty %}
+  <p class="no-data">No exams available.</p>
+  {% endfor %}
+
+</div>
+
+{% endblock %}

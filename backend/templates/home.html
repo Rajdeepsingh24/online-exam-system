@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Exam Management System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+  </head>
+
+  <body>
+    <div class="navbar">
+      <h2>🎓 EMS</h2>
+      <div class="nav-links">
+        <a href="{% url 'about' %}">About</a>
+        <a href="{% url 'login' %}">Login</a>
+      </div>
+    </div>
+
+    <div class="hero">
+      <div class="hero-left">
+        <h1>Reimagining Online Examination</h1>
+        <p>
+          A powerful and secure platform designed to streamline exam creation,
+          student participation, and instant evaluation — all in one place.
+        </p>
+
+        <div class="buttons">
+          <a href="{% url 'about' %}">Explore Platform</a>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="slider">
+          <div class="overlay"></div>
+
+          <img
+            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644"
+            class="slide active"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b"
+            class="slide"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6"
+            class="slide"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat-box">
+        <h2>1000+</h2>
+        <p>Active Students</p>
+      </div>
+      <div class="stat-box">
+        <h2>500+</h2>
+        <p>Exams Conducted</p>
+      </div>
+      <div class="stat-box">
+        <h2>99.9%</h2>
+        <p>System Reliability</p>
+      </div>
+    </div>
+
+    <div class="footer">© 2026 Exam Management System | Built with Django</div>
+
+    <script>
+      const slides = document.querySelectorAll(".slide");
+      let index = 0;
+
+      function showSlide() {
+        slides.forEach((slide) => slide.classList.remove("active"));
+        index = (index + 1) % slides.length;
+        slides[index].classList.add("active");
+      }
+
+      setInterval(showSlide, 3000);
+    </script>
+  </body>
+</html>

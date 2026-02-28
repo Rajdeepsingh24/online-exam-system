@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login | EMS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="left-panel">
+        <h1>Examination Management System</h1>
+        <p>Secure, Reliable & Intelligent Assessment Platform</p>
+      </div>
+
+      <div class="right-panel">
+        <div class="login-card">
+          <h2>Login</h2>
+
+          <form method="post" onsubmit="showLoader()">
+            {% csrf_token %} {% if form.errors %}
+            <div class="error">Invalid username or password</div>
+            {% endif %}
+
+            <div class="input-group">
+              {{ form.username }}
+              <label>Username</label>
+            </div>
+
+            <div class="input-group">
+              {{ form.password }}
+              <label>Password</label>
+              <span class="toggle-pass" onclick="togglePassword()">Show</span>
+            </div>
+
+            <button type="submit" class="btn" id="loginBtn">Sign In</button>
+          </form>
+
+          <div class="forgot-wrapper">
+            <a href="{% url 'password_reset' %}" class="forgot-link">
+              Forgot Password?
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function togglePassword() {
+        const passField = document.querySelector("input[name='password']");
+        const toggleText = document.querySelector(".toggle-pass");
+
+        if (passField.type === "password") {
+          passField.type = "text";
+          toggleText.innerText = "Hide";
+        } else {
+          passField.type = "password";
+          toggleText.innerText = "Show";
+        }
+      }
+
+      function showLoader() {
+        const btn = document.getElementById("loginBtn");
+        btn.classList.add("loading");
+        btn.innerText = "Signing In...";
+      }
+    </script>
+  </body>
+</html>

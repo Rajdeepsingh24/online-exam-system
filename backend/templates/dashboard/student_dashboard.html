@@ -1,0 +1,177 @@
+{% extends "dashboard/base.html" %} {% block title %}Student
+Dashboard{%endblock%} {% block sidebar %}
+<a href="{% url 'student_dashboard' %}">🏠 Dashboard</a>
+<a href="{% url 'available_exams' %}">📝 Available Exams</a>
+<a href="{% url 'my_results' %}">📊 My Results</a>
+{% endblock %} {% block content %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<h1 class="page-title">Welcome back, {{ request.user.username }}</h1>
+
+<div class="card-grid">
+  <div class="card">
+    <h3>Total Exams</h3>
+    <div class="stat-number">{{ total_exams }}</div>
+  </div>
+
+  <div class="card">
+    <h3>Completed</h3>
+    <div class="stat-number completed">{{ completed }}</div>
+  </div>
+
+  <div class="card">
+    <h3>Pending</h3>
+    <div class="stat-number pending">{{ pending }}</div>
+  </div>
+
+  <div class="card">
+    <h3>Performance</h3>
+    <div class="stat-number">{{ performance }}%</div>
+    <div class="progress-bar-container">
+      <div class="progress-bar-fill"></div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<h2 class="section-title">Performance Trend</h2>
+
+<div class="card">
+  <canvas id="performanceChart" height="100"></canvas>
+</div>
+
+{{ chart_labels|json_script:"chart-labels" }} {{
+chart_scores|json_script:"chart-scores" }} {{
+performance|json_script:"performance-data" }}
+
+<hr class="divider" />
+
+<h2 class="section-title">🏆 Latest Exam Leaderboard</h2>
+
+<div class="card">
+  {% if latest_exam %}
+  <p class="exam-title"><strong>Exam:</strong> {{ latest_exam.title }}</p>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Student</th>
+        <th>Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for attempt in leaderboard %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ attempt.student.username }}</td>
+        <td>{{ attempt.score }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% if user_rank %}
+  <p class="user-rank">🎯 Your Rank: <strong>{{ user_rank }}</strong></p>
+  {% endif %} {% else %}
+  <p>No completed exam found.</p>
+  {% endif %}
+</div>
+
+<hr class="divider" />
+
+<h2 class="section-title">Recent Attempts</h2>
+
+<div class="card">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Exam</th>
+        <th>Score</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for attempt in recent_attempts %}
+      <tr>
+        <td>{{ attempt.exam.title }}</td>
+        <td>{{ attempt.score }}</td>
+        <td><span class="badge-success">Completed</span></td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="3" class="no-data">No attempts yet.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const labelsEl = document.getElementById("chart-labels");
+    const scoresEl = document.getElementById("chart-scores");
+    const perfEl = document.getElementById("performance-data");
+
+    const labels = labelsEl ? JSON.parse(labelsEl.textContent) : [];
+    const scores = scoresEl ? JSON.parse(scoresEl.textContent) : [];
+    const progress = perfEl ? JSON.parse(perfEl.textContent) : 0;
+
+    const ctx = document.getElementById("performanceChart");
+
+    if (ctx) {
+      new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: "Score",
+              data: scores,
+              borderColor: "#2563eb",
+              backgroundColor: "rgba(37,99,235,0.1)",
+              tension: 0.4,
+              fill: true,
+              pointRadius: 5,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true } },
+        },
+      });
+    }
+
+    document.querySelectorAll(".stat-number").forEach((el) => {
+      let target = parseInt(el.innerText) || 0;
+      let count = 0;
+      let increment = target / 40;
+
+      function updateCounter() {
+        count += increment;
+        if (count < target) {
+          el.innerText = Math.floor(count);
+          requestAnimationFrame(updateCounter);
+        } else {
+          el.innerText = target;
+        }
+      }
+
+      updateCounter();
+    });
+
+    const bar = document.querySelector(".progress-bar-fill");
+
+    if (bar) {
+      setTimeout(() => {
+        bar.style.width = progress + "%";
+      }, 300);
+    }
+  });
+</script>
+
+{% endblock %}

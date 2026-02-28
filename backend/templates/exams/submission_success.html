@@ -1,0 +1,14 @@
+<h2>Exam Submitted Successfully</h2>
+<p>DEBUG EXAM ID: {{ exam.id }}</p>
+
+<p>You have successfully completed "{{ exam.title }}".</p>
+
+<p><strong>DEBUG → Exam ID:</strong> {{ exam.id }}</p>
+
+<p>
+  <a href="{% url 'exam_result' exam.id %}">View Result</a>
+</p>
+
+<p>
+  <a href="{% url 'student_dashboard' %}">Back to Dashboard</a>
+</p>
