@@ -70,4 +70,6 @@ urlpatterns = [
     # Exams App Routes
     # =========================
     path('exams/', include('exams.urls')),
+
+    path('', include('users.urls')),
 ]
