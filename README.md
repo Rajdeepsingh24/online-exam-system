@@ -4,46 +4,45 @@
 
 The Web-Based Online Examination Management System is designed to automate the traditional examination process. It provides a digital platform where administrators can manage exams and students can attempt exams online.
 
-This system eliminates manual work, reduces errors in evaluation, and ensures efficient handling of exam-related data.
+This system reduces manual work, minimizes errors, and ensures efficient handling of exam-related data.
 
 ---
 
-## 🎯 Objectives
+## 🚀 Live Demo
 
-* To provide a platform for conducting online exams
-* To automate result calculation
-* To manage student and exam data efficiently
-* To reduce manual errors in evaluation
-* To provide quick and accurate results
+🔗 **Click here to access the live project:**
+https://online-exam-system-ik5a.onrender.com
+
+> ⚠️ Note: The server may take 30–60 seconds to load initially (free hosting).
 
 ---
 
-## 🚀 Features
+## 🎯 Features
 
-### 👨‍🏫 Admin / Teacher Module
+### 👨‍🏫 Admin Module
 
-* Create and manage exams
-* Add, update, and delete questions
-* Set exam duration and marks
-* View student attempts
-* Monitor and manage results
+- Create and manage exams
+- Add, update, and delete questions
+- Set exam duration and marks
+- View student attempts
+- Manage results
 
 ### 👨‍🎓 Student Module
 
-* Register and login securely
-* View available exams
-* Attempt exams within time limit
-* Submit answers
-* View results instantly
+- Register and login
+- Attempt exams online
+- Submit answers
+- View results instantly
 
 ---
 
 ## 🛠️ Technologies Used
 
-* **Frontend:** HTML, CSS
-* **Backend:** Python (Django Framework)
-* **Database:** SQLite / MySQL
-* **Tools:** VS Code, GitHub
+- **Frontend:** HTML, CSS
+- **Backend:** Python (Django)
+- **Database:** SQLite / MySQL
+- **Deployment:** Render
+- **Version Control:** Git & GitHub
 
 ---
 
@@ -53,11 +52,11 @@ This system eliminates manual work, reduces errors in evaluation, and ensures ef
 EXAM-SYSTEM/
 │
 ├── backend/
-│   ├── exam_project/     # Django project settings
-│   ├── exams/            # Exam management app
-│   ├── users/            # User management app
-│   ├── templates/        # HTML templates
-│   ├── static/           # CSS files
+│   ├── exam_project/
+│   ├── exams/
+│   ├── users/
+│   ├── templates/
+│   ├── static/
 │   ├── manage.py
 │
 ├── README.md
@@ -109,46 +108,35 @@ http://127.0.0.1:8000/
 
 ---
 
-## 📸 Project Output
+## 📸 Screenshots
 
-After running the project, the system provides:
-
-* Login Page
-* Student Dashboard
-* Admin Dashboard
-* Exam Interface
-* Result Display
-
-👉 (Add screenshots here to improve presentation)
+(Add your project screenshots here for better presentation)
 
 ---
 
 ## 🔐 Limitations
 
-* Supports mainly objective-type questions
-* No advanced cheating detection system
-* Basic UI design
-* Limited scalability for large users
+- Supports mainly objective-type questions
+- No advanced cheating detection system
+- Basic UI design
 
 ---
 
 ## 🔮 Future Enhancements
 
-* AI-based online proctoring
-* Mobile responsive design
-* Advanced analytics and reports
-* Email notifications for exams and results
-* Multi-user scalability
+- AI-based online proctoring
+- Mobile responsive UI
+- Advanced analytics and reporting
+- Email notifications
 
 ---
 
 ## 🧠 Learning Outcomes
 
-* Understanding of Django framework
-* Database integration using MySQL/SQLite
-* Web application development
-* CRUD operations implementation
-* GitHub project management
+- Django web development
+- Database integration
+- Deployment on cloud (Render)
+- Git & GitHub workflow
 
 ---
 
